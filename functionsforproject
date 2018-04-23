@@ -1,0 +1,78 @@
+let the present user be $user
+
+1.Stu.update email :        UPDATE student set email=$given_email 
+                            where s_id=$user1.
+
+2.Stu change password :     update login_details set password=$given_password   
+                            where login_id=$user
+
+3.Stu see the list of 
+ his short_listed jobs:     select name as Comapany,designation as Designation,salary 
+                            from jobs natural join short_listed_students  natural join organisation  
+                            where s_id =$user 
+
+
+4.Stu view his placements:  select name as Comapany,designation as Designation,salary as Salary 
+                            from jobs natural join placements natural join organisation 
+                            where s_id =$user
+
+5.Stu view upcoming jobs:   select name as Company,salary as Salary,designation as Designation
+                            from organisation natural join jobs 
+                            where J.dop > $today
+
+6.Stu .Apply to a job:      (show him the list of jobs available and ask him to enter the job_id)
+                            insert into applied values($given.j_id,$user.s_id,$todaydate)
+
+7.Admin Block dates:        insert into slots values ($given.o_id,$given.date)
+                            (if the admin wants to simply block the date he may leave the o_id empty)
+
+8.Block People:             delete from login_details where user_name=$given.s_id
+
+
+9.Block Companies:          delete from login_details where user_name=$given.o_id
+
+
+10.check the profiles of students: select * from student where s_id=$given_s_id;
+                                   select skill_name from skills  natural join stu_skills 
+                                   where  s_id=$given_s_id
+
+11.organisation profiles:          select * from organisation;
+
+12.Add a Student                    insert into login_details values ($s_id,$password,student)
+                                    insert into student values (s_id,null,null,null,null,null,null,null)
+
+13.Student add details form: insert into student values($user_s_id,fname,sname,lname,email,gpa,dept,dob)
+
+14.check the remaining slots :take todays date and ask admin till when :
+                               for $day=$today;for($day<$given_date:$day++)
+                               print the date which is not there in (slots)
+
+15.change password :     update login_details set password=$given_password   
+                            where login_id=$user
+
+16.Company look into applied:    select name,email,department from student natural join applied natural join jobs natural join 
+                                 organisation where o_id=$user 
+
+17.look at students profiles:   select * from student where s_id=$given_s_id;
+                                   select skill_name from skills  natural join stu_skills 
+                                   where  s_id=$given_s_id
+18.Add to short listed candidates:ask them the job id ans s_id(display if you want to)
+                                  insert into short_listed _students($given.s_id,$given.job_id)
+
+19.add placements:      ask them the job id and student id
+                        insert into placements values(s_id,job_id)
+                        here ask them if they want to delete the entries in the short listed candidates(if yes)
+                        delete from short_listed_students where job_id=$given.job.id
+
+20.Admin also can delete fom short_listed_students:
+
+21.Show them the free slots:take todays date and ask admin till when :
+                               for $day=$today;for($day<$given_date:$day++)
+                               print the date which is not there in (slots)
+
+22.Apply for slot:if the entry is not inserted throw a message like (apply for another date)
+
+23.see the jobs they have offered :
+                                   select designation,salary,dop from jobs where job_id=$user;
+
+24.for homepage graphics:select all the placemetns from each year and then do the average
